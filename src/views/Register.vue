@@ -184,7 +184,7 @@ const countdown = ref(0);
 const registerFormRef = ref(null);
 const sendVerificationCode =  async () => {
   await registerFormRef.value.validateField('email');
-  // isSendingCode.value = true;
+  isSendingCode.value = true;
   countdown.value = 60;
   // 开始倒计时
   const timer = setInterval(() => {
