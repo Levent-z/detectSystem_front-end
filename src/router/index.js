@@ -53,7 +53,7 @@ router.beforeEach((to, from) => {
   console.log(userStore.token);
   console.log(to);
   
-  if (!userStore.token && to.path !== '/login') return '/login'
+  if (!userStore.token && (to.path !== '/login' || to.path !== '/register' || to.path !== '/forget')) return '/login'
   return true
 })
 
