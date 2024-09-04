@@ -1,58 +1,79 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <el-container>
+    <!-- 卡片容器 -->
+    <el-row :gutter="20">
+      <el-col :span="8" v-for="item in stats" :key="item.title">
+        <el-card shadow="hover">
+          <div class="stat-card">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.value }}</p>
+            <p class="stat-trend">{{ item.trend }}</p>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    
+    <!-- 图表容器 -->
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <div id="line-chart" style="width: 100%; height: 400px;"></div>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <div id="pie-chart" style="width: 100%; height: 400px;"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </el-container>
 </template>
 
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+<script setup>
+import { onMounted } from 'vue';
+import * as echarts from 'echarts';
+
+const stats = [
+  { title: '指标一', value: '1,156', trend: '↑2.6%' },
+  { title: '指标二', value: '256,887', trend: '↑1.8%' },
+  { title: '指标三', value: '119,568', trend: '↑0.56%' },
+  { title: '指标四', value: '4,789', trend: '↓0.89%' },
+  { title: '指标五', value: '1,156', trend: '↑2.6%' },
+  { title: '指标六', value: '119,568', trend: '↑0.56%' }
+];
+
+onMounted(() => {
+  // 折线图初始化
+  const lineChart = echarts.init(document.getElementById('line-chart'));
+  const lineChartOption = {
+    xAxis: { type: 'category', data: ['06-01', '06-02', '06-03', '06-04', '06-05', '06-06', '06-07'] },
+    yAxis: { type: 'value' },
+    series: [{ data: [10, 22, 28, 43, 49, 62, 50], type: 'line' }]
+  };
+  lineChart.setOption(lineChartOption);
+
+  // 饼图初始化
+  const pieChart = echarts.init(document.getElementById('pie-chart'));
+  const pieChartOption = {
+    series: [{
+      type: 'pie',
+      data: [
+        { value: 1048, name: 'A类' },
+        { value: 735, name: 'B类' },
+        { value: 580, name: 'C类' }
+      ]
+    }]
+  };
+  pieChart.setOption(pieChartOption);
+});
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.stat-card {
+  text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+.stat-trend {
+  color: #f56c6c;
 }
 </style>
