@@ -1,4 +1,5 @@
-# detection_system
+# detectSystem_front-end
+Front-end code for steel defect detection systems.
 
 ## Project setup
 ```
