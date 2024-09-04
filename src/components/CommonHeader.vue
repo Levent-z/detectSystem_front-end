@@ -12,15 +12,15 @@
       <el-icon size="22px"><Fold /></el-icon>
     </template>
   </el-button>
-
-    <!-- 右侧功能图标和用户信息 -->
-    <div class="header-right">
-      <el-icon class="header-icon">
+  <!-- <el-icon class="header-icon">
         <search />
       </el-icon>
       <el-icon class="header-icon">
         <bell />
-      </el-icon>
+      </el-icon> -->
+    <!-- 右侧功能图标和用户信息 -->
+    <div class="header-right">
+      
       <el-avatar
         class="user-avatar"
         size="default"
