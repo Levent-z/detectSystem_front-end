@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="data-table">
-      <div class="tip" v-show="upload_length !== detect_length">
+      <div class="tip" v-show="upload_length !== detect_length && start">
         共上传{{ upload_length }}张图片，检测出{{ detect_length }}张图像存在缺陷
       </div>
       <el-table
@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { uploadService, getResultService } from "@/api/detect";
 import { getDownloadService } from "@/api/download";
 import { ElMessage } from "element-plus";
@@ -212,6 +212,15 @@ const handleChange = (file, files) => {
   //   showPicture(file.raw);
   // }
 };
+onBeforeUnmount(() => {
+  if (start.value && fileDownloadId.value) {
+    ElNotification({
+      title: "Success",
+      message: "上轮检测结果已保存，可到 *历史记录* 页面下载",
+      type: "success",
+    });
+  }
+});
 const handleRemove = (file, files) => {
   // files是变化后的文件列表
   // 此时fileList是变化前的文件列表

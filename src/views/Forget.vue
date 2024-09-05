@@ -23,6 +23,7 @@
               prefix-icon="user"
               class="custom-input"
               size="large"
+              clearable
             ></el-input>
           </el-form-item>
           <el-form-item prop="email">
@@ -32,6 +33,7 @@
               prefix-icon="message"
               class="custom-input"
               size="large"
+              clearable
             >
               <template #append>
                 <el-button
@@ -52,6 +54,7 @@
               prefix-icon="ticket"
               class="custom-input"
               size="large"
+              clearable
             ></el-input>
           </el-form-item>
           <el-form-item prop="newPassword">
@@ -63,6 +66,7 @@
               class="custom-input"
               size="large"
               show-password
+              clearable
             ></el-input>
           </el-form-item>
           <el-form-item prop="confirmPassword">
@@ -74,6 +78,7 @@
               class="custom-input"
               size="large"
               show-password
+              clearable
             ></el-input>
           </el-form-item>
           <el-button
